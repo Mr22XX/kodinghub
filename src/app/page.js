@@ -7,6 +7,7 @@ import Tutors from './components/Tutors';
 import FAQ from './components/Faq';
 import Testi from './components/Testi';
 import Footer from './components/Footer';
+import Workflow from './components/Workflow';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -20,6 +21,7 @@ export default function KodingHubDetail() {
       
       <Hero />
       <Services />
+      <Workflow />
       <Tutors />
       <FAQ />
       <Testi />
