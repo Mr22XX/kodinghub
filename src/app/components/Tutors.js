@@ -6,7 +6,7 @@ import { Github, ExternalLink, Code2 } from 'lucide-react';
 const tutors = [
   {
     name: "Rayhan Muhammad Adha",
-    role: "Fullstack Developer",
+    role: "Web Developer",
     specialist: ["Laravel", "Vue.js", "Node.js"],
     exp: "3+ Tahun",
     img: "/mentor.jpg",
@@ -15,7 +15,7 @@ const tutors = [
   },
   {
     name: "Akhmat Qavidhufahmi",
-    role: "Backend Engineer",
+    role: "Web Developer",
     specialist: ["Laravel", "Python", "Cloud"],
     exp: "3+ Tahun",
     img: "/mentor1.jpg", 
