@@ -79,9 +79,19 @@ export default function Navbar() {
                 </a>
               ))}
               <hr className="border-white/5 my-2" />
-              <button className="bg-orange-500 text-black w-full py-4 rounded-2xl font-black uppercase text-sm italic shadow-lg shadow-orange-500/20">
+               <a 
+            href="https://wa.me/6281377845302?text=Halo%20KodingHub,%20saya%20ingin%20tanya%20mengenai%20layanan%20koding"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative inline-flex items-center justify-center px-7 py-2.5 bg-orange-500 rounded-full overflow-hidden group transition-all duration-300 active:scale-95 shadow-[0_10px_20px_rgba(249,115,22,0.1)] hover:shadow-[0_15px_30px_rgba(249,115,22,0.2)]"
+            >
+            {/* Layer Glossy saat Hover */}
+            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            
+            <span className="relative z-10 text-black font-black text-[10px] md:text-xs uppercase italic tracking-widest">
                 Hubungi Kami
-              </button>
+            </span>
+            </a>
             </div>
           </motion.div>
         )}
