@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Code, Globe, Database, Smartphone } from 'lucide-react';
+import { X, Code, Globe, Database } from 'lucide-react';
 
 export default function CourseModal({ isOpen, onClose }) {
   const courses = [

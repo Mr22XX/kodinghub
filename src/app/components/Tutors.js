@@ -1,105 +1,116 @@
 "use client";
-import { motion } from 'framer-motion';     
-import React, { useState, useEffect } from 'react';   
-import { Github, Linkedin, Mail } from 'lucide-react';
+import React, { memo } from 'react';
+import Image from 'next/image'; // WAJIB untuk performa HP
+import { Github, ExternalLink, Code2 } from 'lucide-react';
 
 const tutors = [
   {
     name: "Rayhan Muhammad Adha",
-    role: "Web Developer",
-    specialist: "Laravel, Vue js, Node js",
+    role: "Fullstack Developer",
+    specialist: ["Laravel", "Vue.js", "Node.js"],
     exp: "3+ Tahun",
-    img: "/mentor.jpg",
-    github : "https://github.com/Mr22XX"
+    img: "/mentor.jpg", // Pastikan file ini ada di folder public
+    github: "https://github.com/Mr22XX",
+    porto : 'https://my-portoo-alpha.vercel.app/'
   },
   {
-    name: "Akhmat Qavidhufahmi", // Sedikit diperpendek agar tidak pecah di mobile
-    role: "Web Developer",
-    specialist: "Laravel, Vue js, Node js",
+    name: "Akhmat Qavidhufahmi",
+    role: "Backend Engineer",
+    specialist: ["Laravel", "Python", "Cloud"],
     exp: "3+ Tahun",
-    img: "/mentor1.jpg",
-    github : "https://github.com/SxCentauri"
+    img: "/mentor1.jpg", 
+    github: "https://github.com/SxCentauri",
+    porto: 'https://akhmat-dev.vercel.app/'
   }
 ];
 
-export default function Tutors(){
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    setIsDesktop(window.innerWidth > 768);
-  }, []);
-
+function Tutors() {
   return (
-    <section id="tutors" className="py-24 md:py-32 px-6 border-t border-white/5 bg-[#080808]">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-orange-500 font-bold tracking-[0.3em] text-[10px] md:text-xs mb-4 uppercase">Mentors</h2>
-          <h3 className="text-4xl md:text-5xl font-black italic tracking-tighter text-white uppercase">
-            Belajar dari <span className="text-orange-500">Ahlinya.</span>
+    <section id="tutors" className="py-24 md:py-32 px-6 bg-[#080808] relative overflow-hidden">
+      {/* Decorative Blur - Ringan */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/5 blur-[120px] pointer-events-none rounded-full" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <header className="text-center mb-16 md:mb-24 space-y-4">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+            <span className="text-orange-500 font-black text-[10px] tracking-[0.3em] uppercase">Expert Mentors</span>
+          </div>
+          <h3 className="text-4xl md:text-7xl font-black italic tracking-tighter text-white uppercase leading-none">
+            Belajar Dari <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-200">Praktisi.</span>
           </h3>
-          <p className="text-gray-500 mt-6 max-w-xl mx-auto text-xs md:text-sm italic">
-            Tutor kami adalah praktisi yang memiliki pengalaman projek nyata dan sertifikasi kompetensi.
-          </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           {tutors.map((tutor, i) => (
-            <motion.div 
+            <div 
               key={i}
-              whileHover={isDesktop ? { y: -5 } : {}}
-              className="group relative"
+              className="group relative bg-[#0c0c0c] border border-white/5 rounded-[40px] p-6 md:p-10 transition-all duration-500 hover:border-orange-500/40 hover:bg-[#111111]"
             >
-              {/* Background Decor - Dimatikan di Mobile untuk performa */}
-              <div className="hidden md:block absolute inset-0 bg-orange-500 rounded-[40px] rotate-3 group-hover:rotate-6 transition-transform -z-10 opacity-0 group-hover:opacity-100 duration-500" />
-              
-              <div className="bg-[#121212] border border-white/5 p-6 md:p-8 rounded-[32px] md:rounded-[40px] overflow-hidden transition-all duration-300 group-hover:border-orange-500/30">
-                
-                {/* Image Container */}
-                <div className="relative mb-6 md:mb-8 w-full aspect-square md:aspect-video overflow-hidden rounded-2xl md:rounded-3xl bg-zinc-900">
-                  <img 
+              <div className="flex flex-col md:flex-row gap-8 md:items-center">
+                {/* Image Container dengan Next/Image */}
+                <div className="relative w-full md:w-48 h-64 md:h-48 shrink-0 overflow-hidden rounded-[24px] bg-zinc-900 border border-white/5">
+                  <Image 
                     src={tutor.img} 
-                    alt={tutor.name} 
-                    loading="lazy"
-                    className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                    alt={tutor.name}
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ease-out"
+                    sizes="(max-width: 768px) 100vw, 200px"
                   />
-                  {/* Label EXP - Blur dimatikan di Mobile */}
-                  <div className="absolute bottom-4 left-4 bg-black/80 md:backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
-                    <span className="text-[9px] md:text-[10px] font-black text-orange-500 tracking-widest uppercase">{tutor.exp} EXP</span>
+                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
+                    <span className="text-[8px] font-black text-orange-500 tracking-tighter uppercase">{tutor.exp} EXP</span>
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
-                  <div>
-                    <h4 className="text-xl md:text-2xl font-bold mb-1 tracking-tight text-white uppercase">{tutor.name}</h4>
-                    <p className="text-orange-500 text-[10px] font-black uppercase tracking-[0.2em]">{tutor.role}</p>
+                {/* Info Container */}
+                <div className="flex-1 space-y-4 text-left">
+                  <div className="space-y-1">
+                    <h4 className="text-2xl md:text-3xl font-black text-white italic tracking-tighter uppercase leading-tight">
+                      {tutor.name}
+                    </h4>
+                    <p className="text-orange-500 text-[11px] font-black uppercase tracking-[0.2em]">
+                      {tutor.role}
+                    </p>
                   </div>
-                  
-                  <a 
-                    href={tutor.github} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-white/5 hover:bg-orange-500 hover:text-black transition-all px-4 py-2 rounded-xl border border-white/5 text-[10px] font-bold uppercase w-fit"
-                  >
-                    <Github size={14} /> GitHub
-                  </a>
-                </div>
 
-                <div className="pt-6 border-t border-white/5">
-                  <span className="text-[9px] text-gray-500 uppercase font-black tracking-widest block mb-3">Tech Stack</span>
-                  <div className="flex flex-wrap gap-2">
-                    {tutor.specialist.split(', ').map((skill, idx) => (
-                      <span key={idx} className="bg-[#1a1a1a] border border-white/5 text-[9px] md:text-[10px] text-gray-400 px-3 py-1 rounded-lg uppercase font-bold">
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {tutor.specialist.map((skill, idx) => (
+                      <span key={idx} className="bg-white/5 border border-white/5 text-[9px] text-gray-400 px-3 py-1.5 rounded-full uppercase font-black tracking-widest group-hover:text-white transition-colors">
                         {skill}
                       </span>
                     ))}
                   </div>
-                </div>
 
+                  <div className="flex gap-4 pt-4">
+                    <a 
+                      href={tutor.github} 
+                      target="_blank" 
+                      className="flex items-center gap-2 text-white/40 hover:text-orange-500 transition-colors text-[10px] font-bold uppercase tracking-widest"
+                    >
+                      <Github size={16} /> GitHub
+                    </a>
+                    <a 
+                      href={tutor.porto}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-white/40 hover:text-orange-500 transition-colors text-[10px] font-bold uppercase tracking-widest"
+                    >
+                      <Code2 size={16} /> Web
+                    </a>
+                  </div>
+                </div>
               </div>
-            </motion.div>
+
+              {/* Decorative Corner Icon */}
+              <div className="absolute top-8 right-8 text-white/5 group-hover:text-orange-500/10 transition-colors duration-500 pointer-events-none">
+                <ExternalLink size={60} />
+              </div>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+
+export default memo(Tutors);

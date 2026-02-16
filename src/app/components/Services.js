@@ -1,137 +1,135 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import CourseModal from './CourseModal';
-import { 
-  Globe, 
-  Layout, 
-  CheckCircle2, 
-  ArrowRight, 
-  Terminal, 
-  Cpu, 
-  BookOpen, 
-  Coffee 
-} from 'lucide-react';
+import React, { useState, useEffect, memo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { Globe, Layout, CheckCircle2, ArrowRight, Terminal, Cpu, BookOpen, Coffee } from 'lucide-react';
 
-export default function Services() { 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isDesktop, setIsDesktop] = useState(false);
+const CourseModal = dynamic(() => import('./CourseModal'), { ssr: false });
 
-    // Cek layar hanya di client side untuk menghindari hydration error
-    useEffect(() => {
-        setIsDesktop(window.innerWidth > 768);
-    }, []);
+const SERVICE_LIST = [
+  {
+    title: "Web Development",
+    desc: "Landing Page, E-Commerce, Dashboard, hingga Sistem Informasi menggunakan modern Tech-Stack.",
+    features: ['Responsif & Cepat', 'Admin Panel'],
+    icon: <Layout className="w-6 h-6 md:w-8 md:h-8" />,
+    bgIcon: <Globe />,
+    link: "https://wa.me/6281377845302",
+    cta: "Pesan Web",
+    color: "from-blue-500/20"
+  },
+  {
+    title: "Joki Tugas IT",
+    desc: "Solusi cepat untuk tugas Python, Java, C++, PHP, Laravel, dan lainnya. Bergaransi!",
+    features: ['Bebas Plagiasi', 'Harga Ekonomis', 'Revisi Gratis'],
+    icon: <Cpu className="w-6 h-6 md:w-8 md:h-8" />,
+    bgIcon: <Terminal />,
+    link: "https://wa.me/6281377845302",
+    cta: "Kirim Tugas",
+    highlight: true,
+    color: "from-orange-500/20"
+  },
+  {
+    title: "Belajar Private",
+    desc: "Bimbingan intensif dari nol sampai mahir. Kurikulum terstruktur & praktis.",
+    features: ['Live Mentoring', 'Project Portofolio'],
+    icon: <Coffee className="w-6 h-6 md:w-8 md:h-8" />,
+    bgIcon: <BookOpen />,
+    cta: "Daftar Kursus",
+    isModal: true,
+    color: "from-purple-500/20"
+  }
+];
+
+function Services() { 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section id="services" className="py-20 md:py-32 px-6 bg-[#0c0c0c] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6 text-left">
-          <div>
-            <h2 className="text-orange-500 font-bold tracking-[0.3em] text-[10px] md:text-xs mb-3 md:mb-4 uppercase">Katalog Jasa</h2>
-            <h3 className="text-3xl md:text-6xl font-black italic tracking-tighter leading-[1.1] text-white uppercase">
-              Apa yang Bisa <br /> Kami Kerjakan?
+    <section id="services" className="py-24 px-6 bg-[#050505] relative overflow-hidden">
+      {/* Background Decorative - Low Performance Impact */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/5 blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <header className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="h-[2px] w-8 bg-orange-500 rounded-full" />
+              <span className="text-orange-500 font-black text-[10px] tracking-[0.3em] uppercase">Service Catalog</span>
+            </div>
+            <h3 className="text-4xl md:text-7xl font-black text-white leading-none tracking-tighter uppercase">
+              KODING TANPA <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-300">PUSING.</span>
             </h3>
           </div>
-          <p className="text-gray-500 max-w-xs text-xs md:text-sm italic border-l border-orange-500/30 pl-4">
-            "Kualitas kode bukan hanya tentang bagaimana ia bekerja, tapi tentang bagaimana ia bisa dikembangkan."
+          <p className="text-gray-500 max-w-[280px] text-xs font-medium leading-relaxed uppercase tracking-wider">
+            Ekosistem solusi IT untuk Mahasiswa & Profesional dengan standar industri.
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          
-          {/* Jasa 1 - Web Dev */}
-          <motion.div 
-            whileHover={isDesktop ? { y: -8 } : {}}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="p-8 md:p-10 rounded-[32px] md:rounded-[40px] bg-[#121212] border border-white/5 relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 p-6 md:p-8 text-white/5 group-hover:text-orange-500/10 transition-colors pointer-events-none">
-              <Globe className="w-20 h-20 md:w-24 md:h-24" />
-            </div>
-            <div className="p-3 md:p-4 bg-orange-500/10 rounded-2xl w-fit mb-6 md:mb-8 text-orange-500">
-              <Layout className="w-6 h-6 md:w-8 md:h-8" />
-            </div>
-            <h4 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white uppercase tracking-tight">Web Development</h4>
-            <p className="text-gray-400 text-xs md:text-sm mb-6 md:mb-8 leading-relaxed">Landing Page, E-Commerce, Dashboard, hingga Sistem Informasi menggunakan modern Tech-Stack.</p>
-            <ul className="space-y-2 md:space-y-3 mb-8 md:mb-10">
-              {['Responsif & Cepat', 'Admin Panel'].map((item) => (
-                <li key={item} className="flex items-center text-[11px] md:text-xs text-gray-300">
-                  <CheckCircle2 className="w-3.5 h-3.5 md:w-4 h-4 text-orange-500 mr-2" /> {item}
-                </li>
-              ))}
-            </ul>
-            <a 
-              href="https://wa.me/6281377845302?text=Halo%20KodingHub"
-              className="text-orange-500 font-bold text-xs md:text-sm flex items-center gap-2 hover:gap-4 transition-all uppercase tracking-widest"
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {SERVICE_LIST.map((service, i) => (
+            <div 
+              key={i}
+              className={`group relative p-[1px] rounded-[32px] overflow-hidden transition-all duration-500 ${
+                service.highlight ? 'bg-gradient-to-b from-orange-500 to-transparent' : 'bg-white/10 hover:bg-white/20'
+              }`}
             >
-              Pesan Web <ArrowRight className="w-4 h-4" />
-            </a>
-          </motion.div>
+              {/* Inner Card */}
+              <div className={`relative h-full w-full bg-[#0c0c0c] rounded-[31px] p-8 md:p-10 flex flex-col transition-all duration-500 ${service.highlight ? 'bg-gradient-to-br from-[#0c0c0c] to-[#1a110a]' : ''}`}>
+                
+                {/* Subtle Glow Effect on Hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 
-          {/* Jasa 2 - Joki Tugas (Main Feature) */}
-          <motion.div 
-            whileHover={isDesktop ? { y: -8 } : {}}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="p-8 md:p-10 rounded-[32px] md:rounded-[40px] bg-orange-500 text-black relative overflow-hidden group shadow-xl md:shadow-2xl md:shadow-orange-500/20"
-          >
-            <div className="absolute top-0 right-0 p-6 md:p-8 text-black/5 pointer-events-none">
-              <Terminal className="w-20 h-20 md:w-24 md:h-24" />
-            </div>
-            <div className="p-3 md:p-4 bg-black/10 rounded-2xl w-fit mb-6 md:mb-8">
-              <Cpu className="w-6 h-6 md:w-8 md:h-8 text-black" />
-            </div>
-            <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase italic">Joki Tugas IT</h4>
-            <p className="font-medium mb-6 md:mb-8 text-xs md:text-sm leading-relaxed text-black/80">Solusi cepat untuk tugas Python, Java, C++, PHP, Laravel, dan lainnya. Bergaransi!</p>
-            <ul className="space-y-2 md:space-y-3 mb-8 md:mb-10">
-              {['Bebas Plagiasi', 'Harga Ekonomis', 'Revisi Gratis'].map((item) => (
-                <li key={item} className="flex items-center text-[11px] md:text-xs font-bold">
-                  <CheckCircle2 className="w-3.5 h-3.5 md:w-4 h-4 text-black mr-2" /> {item}
-                </li>
-              ))}
-            </ul>
-            <a 
-              href="https://wa.me/6281377845302"
-              className="bg-black text-white w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-black text-xs md:text-sm uppercase transition-transform active:scale-95 flex items-center justify-center shadow-lg"
-            >
-              Kirim Tugas Sekarang
-            </a>
-          </motion.div>
+                <div className={`relative z-10 p-3 rounded-2xl w-fit mb-8 ${service.highlight ? 'bg-orange-500 text-black' : 'bg-white/5 text-orange-500'}`}>
+                  {service.icon}
+                </div>
 
-          {/* Jasa 3 - Belajar */}
-          <motion.div 
-            whileHover={isDesktop ? { y: -8 } : {}}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="p-8 md:p-10 rounded-[32px] md:rounded-[40px] bg-[#121212] border border-white/5 relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 p-6 md:p-8 text-white/5 group-hover:text-orange-500/10 transition-colors pointer-events-none">
-              <BookOpen className="w-20 h-20 md:w-24 md:h-24" />
+                <h4 className="relative z-10 text-2xl font-black text-white uppercase italic mb-4 tracking-tight">
+                  {service.title}
+                </h4>
+
+                <p className="relative z-10 text-gray-400 text-sm leading-relaxed mb-8 font-medium">
+                  {service.desc}
+                </p>
+
+                <div className="relative z-10 space-y-3 mb-10 mt-auto">
+                  {service.features.map((f) => (
+                    <div key={f} className="flex items-center gap-3 text-[11px] font-bold text-gray-300 uppercase tracking-tight">
+                      <CheckCircle2 size={14} className="text-orange-500" />
+                      {f}
+                    </div>
+                  ))}
+                </div>
+
+                {service.isModal ? (
+                  <button 
+                    onClick={() => setIsModalOpen(true)}
+                    className="relative z-10 group/btn flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl transition-all"
+                  >
+                    <span className="text-white text-xs font-black uppercase italic">Daftar Sekarang</span>
+                    <ArrowRight size={18} className="text-orange-500 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                ) : (
+                  <a 
+                    href={service.link}
+                    className={`relative z-10 flex items-center justify-center gap-3 p-4 rounded-2xl font-black text-xs uppercase italic transition-all active:scale-95 ${
+                      service.highlight ? 'bg-orange-500 text-black shadow-[0_0_20px_rgba(249,115,22,0.3)]' : 'bg-white text-black hover:bg-orange-500'
+                    }`}
+                  >
+                    {service.cta}
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="p-3 md:p-4 bg-orange-500/10 rounded-2xl w-fit mb-6 md:mb-8 text-orange-500">
-              <Coffee className="w-6 h-6 md:w-8 md:h-8" />
-            </div>
-            <h4 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white uppercase tracking-tight">Belajar Private</h4>
-            <p className="text-gray-400 text-xs md:text-sm mb-6 md:mb-8 leading-relaxed">Bimbingan intensif dari nol sampai mahir. Kurikulum terstruktur & praktis.</p>
-            <ul className="space-y-2 md:space-y-3 mb-8 md:mb-10">
-              {['Live Mentoring', 'Project Portofolio'].map((item) => (
-                <li key={item} className="flex items-center text-[11px] md:text-xs text-gray-300">
-                  <CheckCircle2 className="w-3.5 h-3.5 md:w-4 h-4 text-orange-500 mr-2" /> {item}
-                </li>
-              ))}
-            </ul>
-            <button 
-                onClick={() => setIsModalOpen(true)}
-                className="text-orange-500 font-bold text-xs md:text-sm flex items-center gap-2 hover:gap-4 transition-all uppercase tracking-widest"
-            >
-              Daftar Kursus <ArrowRight className="w-4 h-4" />
-            </button>
-          </motion.div>
+          ))}
         </div>
       </div>
 
-      <CourseModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
+      <AnimatePresence>
+        {isModalOpen && (
+          <CourseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
+
+export default memo(Services);

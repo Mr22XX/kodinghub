@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { MotionConfig } from "framer-motion"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +11,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
 
 export const metadata = {
   title: "Koding Hub - Jasa Joki & Tutor IT",
@@ -29,10 +31,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <MotionConfig reducedMotion="user">
+          {children}
+        </MotionConfig>
       </body>
     </html>
   );

@@ -1,66 +1,76 @@
-import { motion } from 'framer-motion';
+"use client";
+import React, { memo } from 'react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 
 const stats = [
   { label: "Projek Selesai", value: "10+" },
   { label: "Siswa Aktif", value: "50+" },
-  { label: "Rating Kepuasan", value: "4.9/5" },
+  { label: "Rating", value: "4.9/5" },
   { label: "Baris Kode", value: "1M+" },
 ];
 
-export default function Hero() {
-  // Cek apakah layar adalah desktop (untuk animasi hover)
-  const isDesktop = typeof window !== 'undefined' && window.innerWidth > 768;
-
+function Hero() {
   return (
-    <section className="relative pt-48 pb-32 px-6 overflow-hidden">
-      {/* 1. Dekorasi Background - Gunakan opacity lebih rendah dan pointer-events-none */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-orange-600/10 blur-[180px] rounded-full -z-10 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-orange-900/5 blur-[120px] rounded-full -z-10 pointer-events-none" />
+    <section className="relative pt-36 md:pt-48 pb-24 md:pb-32 px-6 overflow-hidden bg-[#080808]">
+      {/* Background Glow - Low performance impact */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[400px] bg-orange-600/10 blur-[120px] rounded-full -z-10 pointer-events-none" />
       
-      <div className="max-w-6xl mx-auto text-center">
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8"
-        >
+      <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
+        {/* Status Badge */}
+        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8 backdrop-contain">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span className="animate-ping absolute h-full w-full rounded-full bg-orange-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
           </span>
-          <span className="text-[10px] font-bold tracking-[0.2em] text-gray-300 uppercase">Solusi Digital Terintegrasi</span>
-        </motion.div>
+          <span className="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase">Available for New Projects</span>
+        </div>
         
-        {/* 2. Headline - Optimasi tracking dan leading */}
-        <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight text-white">
-          Koding Lebih <span className="text-orange-500 italic uppercase">Cepat</span> <br />
-          Tanpa Batas.
+        {/* Headline */}
+        <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[0.95] tracking-tighter text-white uppercase italic">
+          Koding <span className="text-orange-500 not-italic">Cepat</span><br className="hidden md:block" />
+          Tanpa Batas<span className="text-orange-500">.</span>
         </h1>
         
-        <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto mb-12 font-light leading-relaxed">
-          Dari pembuatan <span className="text-white font-medium underline decoration-orange-500 underline-offset-4">Web Profesional</span>, bantuan <span className="text-white font-medium underline decoration-orange-500 underline-offset-4">Tugas IT</span> mendesak, hingga <span className="text-white font-medium underline decoration-orange-500 underline-offset-4">Belajar</span> Coding.
+        <p className="text-gray-400 text-sm md:text-xl max-w-2xl mb-12 leading-relaxed font-medium uppercase tracking-tight opacity-80">
+          Solusi IT End-to-End: Jasa Web, Joki Tugas IT Bergaransi, dan Mentoring Private dari Praktisi.
         </p>
 
-        {/* 3. Button - Hilangkan backdrop-blur di mobile */}
-        <div className="flex flex-col sm:flex-row justify-center gap-6 mb-20">
-          <button className="bg-white text-black px-10 py-4 rounded-2xl font-black text-lg hover:bg-orange-500 transition-all active:scale-95 shadow-lg shadow-white/5">
-            Lihat Layanan
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-20 w-full sm:w-auto">
+          {/* Button 1: Scroll to Services */}
+          <button 
+            onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group relative px-10 py-5 bg-orange-500 rounded-2xl overflow-hidden transition-all duration-300 active:scale-95 shadow-[0_20px_40px_rgba(249,115,22,0.15)]"
+          >
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <span className="relative z-10 text-black font-black text-xs md:text-sm uppercase tracking-widest flex items-center justify-center gap-3">
+              Eksplor Layanan <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </span>
           </button>
-          <button className="border border-white/10 bg-white/5 md:backdrop-blur text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-white/10 transition-all active:scale-95">
-            Mulai Konsultasi
-          </button>
+
+          {/* Button 2: WhatsApp Link */}
+          <a 
+            href="https://wa.me/6281377845302?text=Halo%20KodingHub,%20saya%20ingin%20konsultasi%20mengenai%20projek/tugas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group px-10 py-5 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center transition-all duration-300 hover:bg-white/10 hover:border-orange-500/50 active:scale-95"
+          >
+            <span className="text-white font-black text-xs md:text-sm uppercase tracking-widest flex items-center gap-3 italic">
+              Konsultasi Gratis <MessageCircle size={18} className="text-orange-500 group-hover:rotate-12 transition-transform" />
+            </span>
+          </a>
         </div>
 
-        {/* 4. Stats - Tambahkan properti layout agar render lebih stabil */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-white/5 pt-16">
+        {/* Stats Section */}
+        <div className="w-full max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/5 pt-12">
           {stats.map((s, i) => (
-            <div key={i} className="text-center group">
-              <div className="text-3xl md:text-4xl font-black text-white mb-1 tracking-tighter group-hover:text-orange-500 transition-colors duration-300">
+            <div key={i} className="flex flex-col items-center">
+              <span className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-1">
                 {s.value}
-              </div>
-              <div className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">
+              </span>
+              <span className="text-orange-500/60 text-[10px] uppercase tracking-[0.2em] font-black">
                 {s.label}
-              </div>
+              </span>
             </div>
           ))}
         </div>
@@ -68,3 +78,5 @@ export default function Hero() {
     </section>
   );
 }
+
+export default memo(Hero);
