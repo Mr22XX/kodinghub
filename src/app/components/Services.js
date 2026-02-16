@@ -3,7 +3,7 @@ import React, { useState, memo } from 'react';
 import dynamic from 'next/dynamic';
 import { Layout, CheckCircle2, ArrowRight, Cpu, Coffee } from 'lucide-react';
 
-// Dynamic import tetap dipertahankan untuk menghemat bundle size
+// Dynamic import untuk CourseModal agar bundle JS tidak berat di awal
 const CourseModal = dynamic(() => import('./CourseModal'), { ssr: false });
 
 const SERVICE_LIST = [
@@ -41,9 +41,9 @@ function Services() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section id="services" className="py-24 px-6 bg-[#050505] relative overflow-hidden contain-paint">
-      {/* 1. Optimized Glow - Menghilangkan blur dinamis yang berat, ganti ke opacity static */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/[0.03] blur-[120px] pointer-events-none" />
+    <section id="services" className="py-24 px-6 bg-[#050505] relative overflow-hidden contain-paint isolate">
+      {/* Background Glow */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/[0.03] blur-[120px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <header className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
@@ -69,10 +69,7 @@ function Services() {
                 service.highlight ? 'bg-orange-500' : 'bg-white/10 hover:bg-white/20'
               }`}
             >
-              {/* Inner Card - Menghilangkan AnimatePresence di hover, ganti ke CSS murni */}
               <div className="relative h-full w-full bg-[#0c0c0c] rounded-[31px] p-8 md:p-10 flex flex-col overflow-hidden">
-                
-                {/* BG Glow Hover - CSS Only */}
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${service.color}`} />
 
                 <div className={`relative z-10 p-4 rounded-2xl w-fit mb-8 transition-transform duration-500 group-hover:-translate-y-1 ${service.highlight ? 'bg-orange-500 text-black' : 'bg-white/5 text-orange-500'}`}>
@@ -99,10 +96,10 @@ function Services() {
                 {service.isModal ? (
                   <button 
                     onClick={() => setIsModalOpen(true)}
-                    className="relative z-10 flex items-center justify-between bg-white/5 border border-white/10 p-5 rounded-2xl transition-all hover:bg-white/10"
+                    className="relative z-10 flex items-center justify-between bg-white/5 border border-white/10 p-5 rounded-2xl transition-all hover:bg-white/10 group/btn"
                   >
                     <span className="text-white text-[10px] font-black uppercase italic tracking-widest">Daftar Sekarang</span>
-                    <ArrowRight size={18} className="text-orange-500 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight size={18} className="text-orange-500 transition-transform group-hover/btn:translate-x-1" />
                   </button>
                 ) : (
                   <a 
@@ -120,8 +117,19 @@ function Services() {
         </div>
       </div>
 
-      {/* Modal Render - Gunakan conditional rendering sederhana untuk kecepatan */}
-      {isModalOpen && <CourseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
+      {/* FIXED MODAL WRAPPER - Menjamin posisi selalu di tengah viewport */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
+          <div className="w-full max-w-lg relative animate-[scaleUp_0.3s_ease-out]">
+             <CourseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          </div>
+        </div>
+      )}
+
+      <style jsx global>{`
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+      `}</style>
     </section>
   );
 }
