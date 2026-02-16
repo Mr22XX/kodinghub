@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Layout, CheckCircle2, ArrowRight, Cpu, Coffee } from 'lucide-react';
 
-// Dynamic import untuk CourseModal agar bundle JS tidak berat di awal
+// Dynamic import untuk performa LCP yang lebih baik
 const CourseModal = dynamic(() => import('./CourseModal'), { ssr: false });
 
 const SERVICE_LIST = [
@@ -40,8 +40,19 @@ const SERVICE_LIST = [
 function Services() { 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Mencegah scroll pada layar utama saat modal terbuka (PENTING untuk mobile)
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none'; // Tambahan untuk mobile iOS
+    } else {
+      document.body.style.overflow = 'unset';
+      document.body.style.touchAction = 'auto';
+    }
+  }, [isModalOpen]);
+
   return (
-    <section id="services" className="py-24 px-6 bg-[#050505] relative overflow-hidden contain-paint isolate">
+    <section id="services" className="py-24 px-6 bg-[#050505] relative isolate">
       {/* Background Glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/[0.03] blur-[120px] pointer-events-none -z-10" />
 
@@ -61,11 +72,12 @@ function Services() {
           </p>
         </header>
 
+        {/* Grid Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {SERVICE_LIST.map((service, i) => (
             <div 
               key={i}
-              className={`group relative rounded-[32px] p-[1.5px] transition-transform duration-300 will-change-transform active:scale-[0.98] ${
+              className={`group relative rounded-[32px] p-[1.5px] transition-transform duration-300 active:scale-[0.98] ${
                 service.highlight ? 'bg-orange-500' : 'bg-white/10 hover:bg-white/20'
               }`}
             >
@@ -117,10 +129,17 @@ function Services() {
         </div>
       </div>
 
-      {/* FIXED MODAL WRAPPER - Menjamin posisi selalu di tengah viewport */}
+      {/* MODAL SYSTEM (FIXED CENTERING) */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
-          <div className="w-full max-w-lg relative animate-[scaleUp_0.3s_ease-out]">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+          {/* Backdrop Blur */}
+          <div 
+            className="absolute inset-0 bg-black/95 backdrop-blur-md animate-[fadeIn_0.3s_ease-out]" 
+            onClick={() => setIsModalOpen(false)}
+          />
+          
+          {/* Modal Container */}
+          <div className="relative w-full max-w-lg z-[10000] animate-[popIn_0.4s_cubic-bezier(0.16,1,0.3,1)]">
              <CourseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           </div>
         </div>
@@ -128,7 +147,10 @@ function Services() {
 
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes popIn { 
+          from { opacity: 0; transform: scale(0.9) translateY(30px); } 
+          to { opacity: 1; transform: scale(1) translateY(0); } 
+        }
       `}</style>
     </section>
   );
