@@ -19,7 +19,7 @@ export default function Navbar() {
         
         {/* Logo */}
         <div className="text-2xl font-black text-white italic tracking-tighter">
-          KODING<span className="text-orange-500">HUB.</span>
+          KODING<span className="text-orange-500">HUB.ID</span>
         </div>
 
         {/* Desktop Menu */}

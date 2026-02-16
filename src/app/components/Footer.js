@@ -26,7 +26,7 @@ export default function Footer() {
                 onClick={scrollToTop}
                 className="text-4xl font-black text-white italic tracking-tighter mb-4 hover:opacity-80 transition-opacity"
               >
-                KODING<span className="text-orange-500">HUB.</span>
+                KODING<span className="text-orange-500">HUB.ID</span>
               </button>
               <p className="text-gray-500 text-sm leading-relaxed max-w-sm font-medium uppercase tracking-tight">
                 Membangun ekosistem digital yang menghubungkan ide kreatif dengan eksekusi kode yang presisi.
