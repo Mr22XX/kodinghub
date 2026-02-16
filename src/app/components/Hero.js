@@ -3,8 +3,8 @@ import React, { memo } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 
 const stats = [
-  { label: "Projek Selesai", value: "100+" },
-  { label: "Siswa Aktif", value: "500+" },
+  { label: "Projek Selesai", value: "10+" },
+  { label: "Siswa Aktif", value: "50+" },
   { label: "Rating", value: "4.9/5" },
   { label: "Baris Kode", value: "1M+" },
 ];
