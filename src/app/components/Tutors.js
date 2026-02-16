@@ -41,7 +41,7 @@ export default function Tutors(){
             {tutors.map((tutor, i) => (
               <motion.div 
                 key={i}
-                whileHover={{ y: -15 }}
+                whileHover={{ y: -5 }}
                 className="group relative"
               >
                 {/* Background Decor */}
