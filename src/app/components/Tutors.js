@@ -9,7 +9,7 @@ const tutors = [
     role: "Web Developer",
     specialist: "Laravel, Vue js, Node js",
     exp: "3+ Tahun",
-    img: "/mentor.jpeg",
+    img: "/mentor.jpg",
     github : "https://github.com/Mr22XX"
   },
   {
@@ -17,7 +17,7 @@ const tutors = [
     role: "Web Developer",
     specialist: "Laravel, Vue js, Node js",
     exp: "3+ Tahun",
-    img: "/mentor1.jpeg",
+    img: "/mentor1.jpg",
     github : "https://github.com/SxCentauri"
   }
 ];
