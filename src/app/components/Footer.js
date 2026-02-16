@@ -52,7 +52,7 @@ function Footer() {
           </div>
 
           {/* Quick Links Section */}
-          <div className="md:col-span-5 grid grid-cols-2 gap-8">
+          <div className="md:col-span-5 grid grid-cols gap-8">
             <div className="space-y-6">
               <h5 className="text-orange-500 text-[10px] font-black uppercase tracking-[0.4em]">Sitemap</h5>
               <ul className="space-y-4">
@@ -71,13 +71,7 @@ function Footer() {
               </ul>
             </div>
 
-            <div className="space-y-6">
-              <h5 className="text-orange-500 text-[10px] font-black uppercase tracking-[0.4em]">Legal</h5>
-              <ul className="space-y-4 text-gray-500 text-xs font-bold uppercase tracking-widest">
-                <li className="hover:text-white cursor-pointer transition-colors">Privacy Policy</li>
-                <li className="hover:text-white cursor-pointer transition-colors">Terms of Service</li>
-              </ul>
-            </div>
+            
           </div>
         </div>
 
