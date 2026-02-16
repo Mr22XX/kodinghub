@@ -29,7 +29,7 @@ export default function Services() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Jasa 1 */}
-          <motion.div whileHover={{ y: -5 }} className="p-10 rounded-[40px] bg-[#121212] border border-white/5 relative overflow-hidden group">
+          <motion.div whileHover={typeof window !== 'undefined' && window.innerWidth > 768 ? { y: -5 } : {}} className="p-10 rounded-[40px] bg-[#121212] border border-white/5 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-8 text-white/5 group-hover:text-orange-500/10 transition-colors">
               <Globe className="w-24 h-24" />
             </div>

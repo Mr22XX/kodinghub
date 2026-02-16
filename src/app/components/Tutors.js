@@ -41,7 +41,7 @@ export default function Tutors(){
             {tutors.map((tutor, i) => (
               <motion.div 
                 key={i}
-                whileHover={{ y: -5 }}
+                whileHover={typeof window !== 'undefined' && window.innerWidth > 768 ? { y: -5 } : {}}
                 className="group relative"
               >
                 {/* Background Decor */}
